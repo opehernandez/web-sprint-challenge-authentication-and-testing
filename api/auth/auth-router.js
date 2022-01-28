@@ -1,7 +1,15 @@
 const router = require('express').Router();
+const bcrypt = require('bcryptjs')
+
+const { errHandler } = require('./middleware')
+const createToken = require('./create-token');
+const { BCRYPT_ROUNDS } = require('../../config');
 
 router.post('/register', (req, res) => {
-  res.end('implement register, please!');
+  let user = req.body
+
+  const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS)
+  user.password = hash
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -30,7 +38,8 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+  const {username, password} = req.body
+  
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -55,5 +64,5 @@ router.post('/login', (req, res) => {
       the response body should include a string exactly as follows: "invalid credentials".
   */
 });
-
+router.use(errHandler)
 module.exports = router;
