@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs')
 
-const { errHandler } = require('./middleware')
+const { errHandler, checkUserFree, CheckPayload } = require('./middleware')
 const createToken = require('./create-token');
 const { BCRYPT_ROUNDS } = require('../../config');
 const User = require('./users-model')
 
-router.post('/register', (req, res, next) => {
+router.post('/register', checkUserFree, (req, res, next) => {
   let user = req.body
 
   const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS)
@@ -46,13 +46,12 @@ router.post('/register', (req, res, next) => {
   */
 });
 
-router.post('/login', (req, res, next) => {
+router.post('/login', CheckPayload, (req, res, next) => {
   const {username, password} = req.body
 
     User.getByUsername(username)
       .then(([user]) => {
         if (user && bcrypt.compareSync(password, user.password)) {
-          // here we make token and send it to client in res.body
           const token = createToken(user)
           res.status(200).json({ message: `Welcome back ${user.username}...`, token })
         } else {
