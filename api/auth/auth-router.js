@@ -8,12 +8,11 @@ const User = require('./users-model')
 
 router.post('/register', CheckPayload, checkUserFree, (req, res, next) => {
   let user = req.body
-  let trimmed = {...user, username : user.username.trim()}
 
   const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS)
   user.password = hash
 
-  User.insert(trimmed)
+  User.insert(user)
     .then(created => {
       res.status(201).json(created[0])
     })
