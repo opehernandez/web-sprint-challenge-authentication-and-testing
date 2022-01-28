@@ -21,6 +21,10 @@ const CheckPayload = (req, res, next) => {
         const err = {status: 400, message: 'username and password required'}
         next(err)
     }
+    else if(username.trim().length < 3) {
+        const err = {status: 400, message: 'username must be at least 3 characters'}
+        next(err)
+    }
     else{
         next()
     }
