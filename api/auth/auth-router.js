@@ -6,7 +6,7 @@ const createToken = require('./create-token');
 const { BCRYPT_ROUNDS } = require('../../config');
 const User = require('./users-model')
 
-router.post('/register', checkUserFree, (req, res, next) => {
+router.post('/register', checkUserFree, CheckPayload, (req, res, next) => {
   let user = req.body
 
   const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS)
