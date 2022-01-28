@@ -4,12 +4,21 @@ const bcrypt = require('bcryptjs')
 const { errHandler } = require('./middleware')
 const createToken = require('./create-token');
 const { BCRYPT_ROUNDS } = require('../../config');
+const User = require('./users-model')
 
 router.post('/register', (req, res) => {
   let user = req.body
 
   const hash = bcrypt.hashSync(user.password, BCRYPT_ROUNDS)
   user.password = hash
+
+  User.insert(req.body)
+    .then(created => {
+      res.status(201).json(created)
+    })
+    .catch(err => {
+      next(err)
+    })
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
