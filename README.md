@@ -60,10 +60,13 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
     stores that data securely in the clients side.
 
 2. What does `bcryptjs` do to help us store passwords in a secure manner?
-    bcryptjs is a library that allows us as developers to hash the users password, doing so imposes a time barrier to potential attackers that would have to spend
-    centuries to break a hash if they somehow figure out the algorithm.
+    bcryptjs is a library that allows us as developers to hash the users password as well as comparing hashed paswords with each other, doing so imposes a time barrier to potential attackers that would have to spend centuries to break a hash if they somehow figure out the algorithm.
 
 3. How are unit tests different from integration and end-to-end testing?
+    Unit testing is performed in individual components or functions, is the process in which independent modules are tested for correctness,
+        while integration testing is performed to test how two softwares or multiple parts of a software interact with each other, after unit testing, integration testing is usually followed.
+        Finally end-to-end testing is carried out in the whole application, top to bottom, testing its full functionality.
+
 4. How does _Test Driven Development_ change the way we write applications and tests?
     TDD is considered by many 'the way to go', because it forces us to write cleaner dryer code that will ultimatly result in less effort and time to maintain,
     we start by writing out test that fails because theres no code to test, then write the code we want to test and make it pass, lastly refactor our code to make it cleaner.
